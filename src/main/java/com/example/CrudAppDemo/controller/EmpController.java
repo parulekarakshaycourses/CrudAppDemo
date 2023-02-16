@@ -2,6 +2,7 @@ package com.example.CrudAppDemo.controller;
 
 import com.example.CrudAppDemo.dao.EmpDao;
 import com.example.CrudAppDemo.entity.Emp;
+import com.example.CrudAppDemo.helper.FileUploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class EmpController
 {
     @Autowired
     EmpDao empDao;
+    @Autowired
+    FileUploader fileUploader;
 
     @GetMapping("/")
     public String home(Model model)
@@ -91,9 +95,12 @@ public class EmpController
     }
 
     @PostMapping("/emp/save/")
-    public String saveEmp(Model model, Emp emp)
+    public String saveEmp(Model model, Emp emp, MultipartFile file)
     {
-        empDao.save(emp);
+        Emp empSaved = empDao.save(emp);
+        String fileName = empSaved.getId() + ".png";
+
+        fileUploader.uploadFile(file, fileName);
 
         int curPage = 1;
         int maxSize = 5;

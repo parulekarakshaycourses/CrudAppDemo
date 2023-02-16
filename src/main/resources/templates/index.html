@@ -11,11 +11,12 @@
 </head>
 
 <body>
-<form style="margin: 10px;" method="post" action="/emp/save/" th:object="${Emp}">
+<form style="margin: 10px;" method="post" action="/emp/save/" th:object="${Emp}" enctype="multipart/form-data">
 
     <input class="form-control" type="hidden" name="empId">
     <input class="form-control" type="text" name="name" placeholder="Enter Name">
     <input class="form-control" type="text" name="salary" placeholder="Enter Salary">
+    <input class="form-control" type="file" name="file" accept="image/png">
     <button class="btn btn-primary" type="submit" style="margin-right: 5px;margin-top: 5px;">Save</button>
     <button class="btn btn-secondary" type="reset" style="margin-top: 5px;">Clear</button></form>
 
@@ -26,6 +27,7 @@
             <th style="text-align: center;">ID</th>
             <th style="text-align: center;">NAME</th>
             <th style="text-align: center;">SALARY</th>
+            <th style="text-align: center;">PIC</th>
             <th></th>
         </tr>
         </thead>
@@ -34,6 +36,7 @@
             <td class="text-end" th:text="${emp.getId()}"></td>
             <td th:text="${emp.getName()}"></td>
             <td class="text-end" th:text="${emp.getSalary()}"></td>
+            <td> <img height="100px" width="70px" th:src="@{/assets/img/{fileName}/(fileName = ${emp.getId() + '.png'})}"> </td>
             <td class="text-end">
                 <div class="btn-group" role="group">
                     <a class="btn btn-danger" role="button" th:href="@{/emp/delete/{id}/(id = ${emp.getId()})}"><i class="fa fa-trash-o"></i></a></div>
