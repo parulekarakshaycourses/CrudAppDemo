@@ -115,4 +115,11 @@ public class EmpController
         return "index";
     }
 
+    @GetMapping("/emp/{id}/")
+    public String getEmpById(Model model, @PathVariable int id)
+    {
+        model.addAttribute("emp", empDao.getReferenceById(id));
+        return "empDetails";
+    }
+
 }
