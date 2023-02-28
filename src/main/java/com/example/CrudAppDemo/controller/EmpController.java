@@ -21,7 +21,7 @@ public class EmpController
     @Autowired
     EmpDao empDao;
 
-    @GetMapping("/")
+    @GetMapping("/emp/")
     public String home(Model model)
     {
         int curPage = 1;
@@ -43,7 +43,7 @@ public class EmpController
         return "index";
     }
 
-    @GetMapping("/{curPage}/")
+    @GetMapping("/emp/{curPage}/")
     public String findByPageNo(Model model, @PathVariable int curPage)
     {
         int maxSize = 5;
